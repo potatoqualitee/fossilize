@@ -20,8 +20,8 @@ inputs:
     required: false
     default: "true"
   artifact-name:
-    description: "The name of the artifact. Default is csv-artifacts."
-    default: "csv-artifacts"
+    description: "The name of the artifact. Default is mastodon-backup."
+    default: "mastodon-backup"
   verbose:
     description: "Show verbose output. Defaults to true."
     required: true

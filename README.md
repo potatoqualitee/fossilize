@@ -62,7 +62,7 @@ Finally, create a workflow `.yml` file in your repositories `.github/workflows` 
 * `path` - The path to the directory that will hold the CSV files, defaults to `./backups`. This Action will create the directory if it does not exist.
 * `type` - Which items to backup. Options include: follows, lists, blocks, mutes, domain_blocks, bookmarks, followers, posts and all. Defaults to all.
 * `auto-artifact` - Attach the csv files as an artifact to this workflow. Default is true.
-* `artifact-name` - The name of the artifact. Default is csv-artifacts.
+* `artifact-name` - The name of the artifact. Default is mastodon-backup.
 * `verbose` - Show verbose output. Defaults to true.
 
 ## Outputs
@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Backup Mastodon Account
         uses: ./
