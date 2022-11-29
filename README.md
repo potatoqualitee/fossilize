@@ -1,4 +1,4 @@
-# Fossil - Mastodon account backup tool
+# Fossilize - Mastodon account backup tool
 
 This Action will help you backup Mastodon account items to CSV files, including:
 
@@ -13,15 +13,15 @@ This Action will help you backup Mastodon account items to CSV files, including:
 
 The export is performed using the Mastodon API and an Access Token.
 
-Note that Followers and Posts cannot be imported using Mastodon's import web interface.
+Note that Followers and Posts cannot be imported using Mastodon's import web interface. Also, posts are exported in JSON format because they are more complex.
 
 ## Documentation
 
 Here's how you'd export your follows, lists, blocks, mutes, domain_blocks, bookmarks, followers, and posts if your account is on the dataplatform.social Mastodon instance. This will export the files to `./backups` then attach a zip of the `./backups` as an artifact to the workflow run.
 
 ```yaml
-- name: Backup account to CSV files
-  uses: potatoqualitee/fossil@v1
+- name: Backup account to files
+  uses: potatoqualitee/fossilize@v1
     with:
         server: dataplatform.social
     env:
@@ -62,7 +62,7 @@ Finally, create a workflow `.yml` file in your repositories `.github/workflows` 
 * `path` - The path to the directory that will hold the CSV files, defaults to `./backups`. This Action will create the directory if it does not exist.
 * `type` - Which items to backup. Options include: follows, lists, blocks, mutes, domain_blocks, bookmarks, followers, posts and all. Defaults to all.
 * `auto-artifact` - Attach the csv files as an artifact to this workflow. Default is true.
-* `artifact-name` - The name of the artifact. Default is csv-artifacts.
+* `artifact-name` - The name of the artifact. Default is mastodon-backup.
 * `verbose` - Show verbose output. Defaults to true.
 
 ## Outputs
@@ -71,7 +71,7 @@ Finally, create a workflow `.yml` file in your repositories `.github/workflows` 
 
 ### Example workflows
 
-Use the `Fossil` action to backup your account to CSV each night at midnight and attach the zip as an artifact
+Use the `Fossilize` action to backup your account to CSV each night at midnight and attach the zip as an artifact
 
 ```yaml
 name: Backup Mastodon Account
@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Backup Mastodon Account
         uses: ./

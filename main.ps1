@@ -59,12 +59,12 @@ foreach ($item in $items) {
             # No header, two columns formatted like: listname, user@domain.tld
             foreach ($list in (Get-List)) {
                 foreach ($member in (Get-ListMember -Id $list.Id)) {
-                        "$($list.title),$($member.acct)" #| Add-Content -Path $filepath
+                        "$($list.title),$($member.acct)" | Add-Content -Path $filepath
                 }
             }
         }
         if ($item -eq "follows") {
-            Write-Verbose "Exporting follows"
+            Write-Verbose "Exporting following"
             $filepath = Join-Path -Path $dir -ChildPath following_accounts.csv
             # Account address,Show boosts,Notify on new posts,Languages
             # id[]=1&id[]=2
@@ -84,7 +84,7 @@ foreach ($item in $items) {
             endorsed             : False
             note                 :
             #>
-            $follows = Get-Follows
+            $follows = Get-WhoAmIFollowing
             $relationships = Get-Relationship
             $follows | ForEach-Object -Process {
                 $rel = $relationships | Where-Object Id -eq $PSItem.Id
@@ -96,7 +96,7 @@ foreach ($item in $items) {
                     'Notify on new posts' = $notify
                     'Languages'           = $rel.languages
                 }
-            } | Export-Csv -FilePath $filepath
+            } | Export-Csv -Path $filepath
         }
 
         if ($item -eq "mutes") {
@@ -104,7 +104,7 @@ foreach ($item in $items) {
             $filepath = Join-Path -Path $dir -ChildPath muted_accounts.csv
             # Account address,Hide notifications
             foreach ($account in (Get-AccountMute).acct) {
-                "$account, $true" | Add-Content -FilePath $filepath
+                "$account, $true" | Add-Content -Path $filepath
             }
         }
 
@@ -122,16 +122,17 @@ foreach ($item in $items) {
         }
 
         if ($item -eq "followers") {
+            # Thi can't be imported
             Write-Verbose "Exporting followers"
             $filepath = Join-Path -Path $dir -ChildPath followers.csv
-            "Follower" | Set-Content -FilePath $filepath
-            (Get-Follower).acct | Add-Content -FilePath $filepath
+            "Follower" | Set-Content -Path $filepath
+            (Get-WhoFollowsMe).acct | Add-Content -Path $filepath
         }
 
         if ($item -eq "posts") {
-            Write-Verbose "Exporting bookmarks"
+            Write-Verbose "Exporting posts"
             $filepath = Join-Path -Path $dir -ChildPath posts.json
-            Get-Post | Export-Csv -FilePath $filepath
+            Get-Post | ConvertTo-Json -Depth 10 | Out-File -FilePath $filepath
         }
 
         Get-ChildItem -Path $filepath
@@ -166,5 +167,4 @@ if (-not $PSBoundParameter.Type) {
 #>
 
 
-$csv = Resolve-Path -Path $Path
-"csv-path=$csv" >> $env:GITHUB_OUTPUT
+"csv-path=$dir" >> $env:GITHUB_OUTPUT
