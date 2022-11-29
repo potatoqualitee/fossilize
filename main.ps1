@@ -37,7 +37,6 @@ if (-not $dir) {
     $dir = $Path
 }
 if (-not (Test-Path $dir)) {
-    write-warning AYYY
     $null = New-Item -Path $dir -Type Directory -ErrorAction Stop
 }
 $dir = Resolve-Path -Path $dir -ErrorAction Ignore
