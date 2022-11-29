@@ -19,7 +19,6 @@ function Get-WhoAmIFollowing {
         [psobject[]]$Id = $script:myid
     )
     $script:link = $null
-    # https://tech.lgbt/api/v1/accounts/109295651507341046/following
     Invoke-Request -Path "accounts/$Id/following?limit=80"
 
     while ($null -ne $script:link) {

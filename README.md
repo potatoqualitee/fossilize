@@ -13,14 +13,14 @@ This Action will help you backup Mastodon account items to CSV files, including:
 
 The export is performed using the Mastodon API and an Access Token.
 
-Note that Followers and Posts cannot be imported using Mastodon's import web interface.
+Note that Followers and Posts cannot be imported using Mastodon's import web interface. Also, posts are exported in JSON format because they are more complex.
 
 ## Documentation
 
 Here's how you'd export your follows, lists, blocks, mutes, domain_blocks, bookmarks, followers, and posts if your account is on the dataplatform.social Mastodon instance. This will export the files to `./backups` then attach a zip of the `./backups` as an artifact to the workflow run.
 
 ```yaml
-- name: Backup account to CSV files
+- name: Backup account to files
   uses: potatoqualitee/fossil@v1
     with:
         server: dataplatform.social

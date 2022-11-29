@@ -131,9 +131,9 @@ foreach ($item in $items) {
         }
 
         if ($item -eq "posts") {
-            Write-Verbose "Exporting bookmarks"
-            $filepath = Join-Path -Path $dir -ChildPath posts.csv
-            Get-Post | Export-Csv -Path $filepath
+            Write-Verbose "Exporting posts"
+            $filepath = Join-Path -Path $dir -ChildPath posts.json
+            Get-Post | ConvertTo-Json -Depth 10 | Out-File -FilePath $filepath
         }
 
         Get-ChildItem -Path $filepath
