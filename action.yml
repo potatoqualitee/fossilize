@@ -1,0 +1,71 @@
+name: "Mastodon Fossil"
+branding:
+  icon: "archive"
+  color: "gray-dark"
+description: "Mastodon account backup tool"
+inputs:
+  server:
+    description: "Your Mastodon server. If you are dbatools@dataplatform.social, this would be dataplatform.social."
+    required: true
+  path:
+    description: "The path to the directory that will hold the CSV files, defaults to `./backups`. This Action will create the directory if it does not exist."
+    default: "./backups"
+    required: false
+  type:
+    description: "Which items to backup. Options include: follows, lists, blocks, mutes, domain_blocks, bookmarks, followers, posts and all. Defaults to all."
+    default: "all"
+    required: false
+  auto-artifact:
+    description: "Attach the csv files as an artifact to this workflow. Default is true."
+    required: false
+    default: "true"
+  artifact-name:
+    description: "The name of the artifact. Default is csv-artifacts."
+    default: "csv-artifacts"
+  verbose:
+    description: "Show verbose output. Defaults to true."
+    required: true
+    default: "true"
+runs:
+  using: "composite"
+  steps:
+    - id: exports
+      shell: pwsh
+      run: |
+        if ("${{ inputs.verbose }}" -eq $true) {
+          $VerbosePreference = "Continue"
+        }
+
+        $env:MASTODON_SERVER = "${{ inputs.server }}"
+
+        Write-Verbose "Running script"
+
+        if (-not $env:ACCESS_TOKEN) {
+          throw '$env:ACCESS_TOKEN is empty. Did you setup your secrets? Check the docs.'
+        } else {
+          $env:ACCESS_TOKEN = $env:ACCESS_TOKEN.Replace("Bearer ", "")
+        }
+
+        function ConvertTo-Array ($str) {
+          # all input to be either commas or yaml arrays
+          $results = ($str -split ',').Split(" ", [System.StringSplitOptions]::RemoveEmptyEntries)
+          if ($results) {
+            $results.Trim()
+          }
+        }
+
+        $params = @{
+            Server    = ConvertTo-Array "${{ inputs.server }}"
+            Path      = "${{ inputs.path }}"
+            Type      = ConvertTo-Array "${{ inputs.type }}"
+        }
+
+        ${{ github.action_path }}/main.ps1 @params
+
+
+    - uses: actions/upload-artifact@v3
+      if: inputs.auto-artifact == 'true'
+      with:
+        name: ${{ inputs.artifact-name }}
+        path: |
+          ${{ steps.export.outputs.csv-path }}
