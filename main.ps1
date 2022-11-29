@@ -84,7 +84,7 @@ foreach ($item in $items) {
             endorsed             : False
             note                 :
             #>
-            $follows = Get-Follows
+            $follows = Get-Follower
             $relationships = Get-Relationship
             $follows | ForEach-Object -Process {
                 $rel = $relationships | Where-Object Id -eq $PSItem.Id
