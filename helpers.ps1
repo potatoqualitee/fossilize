@@ -1,25 +1,26 @@
 $PSDefaultParameterValues["Invoke-Request:UseWebRequest"] = $true
 $PSDefaultParameterValues["Invoke-Request:Method"] = "GET"
-function Get-Follower {
+function Get-WhoFollowsMe {
     [CmdletBinding()]
     param(
         [psobject[]]$Id = $script:myid
     )
     $script:link = $null
-    Invoke-Request -Path "accounts/$Id/followers"
+    Invoke-Request -Path "accounts/$Id/followers?limit=80"
 
     while ($null -ne $script:link) {
         Invoke-Request -Path $script:link
     }
 }
 
-function Get-Following {
+function Get-WhoAmIFollowing {
     [CmdletBinding()]
     param(
         [psobject[]]$Id = $script:myid
     )
     $script:link = $null
-    Invoke-Request -Path "accounts/$Id/following?limit=0"
+    # https://tech.lgbt/api/v1/accounts/109295651507341046/following
+    Invoke-Request -Path "accounts/$Id/following?limit=80"
 
     while ($null -ne $script:link) {
         Invoke-Request -Path $script:link

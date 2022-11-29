@@ -37,6 +37,7 @@ if (-not $dir) {
     $dir = $Path
 }
 if (-not (Test-Path $dir)) {
+    write-warning AYYY
     $null = New-Item -Path $dir -Type Directory -ErrorAction Stop
 }
 $dir = Resolve-Path -Path $dir -ErrorAction Ignore
@@ -59,12 +60,12 @@ foreach ($item in $items) {
             # No header, two columns formatted like: listname, user@domain.tld
             foreach ($list in (Get-List)) {
                 foreach ($member in (Get-ListMember -Id $list.Id)) {
-                        "$($list.title),$($member.acct)" #| Add-Content -Path $filepath
+                        "$($list.title),$($member.acct)" | Add-Content -Path $filepath
                 }
             }
         }
         if ($item -eq "follows") {
-            Write-Verbose "Exporting follows"
+            Write-Verbose "Exporting following"
             $filepath = Join-Path -Path $dir -ChildPath following_accounts.csv
             # Account address,Show boosts,Notify on new posts,Languages
             # id[]=1&id[]=2
@@ -84,7 +85,7 @@ foreach ($item in $items) {
             endorsed             : False
             note                 :
             #>
-            $follows = Get-Follower
+            $follows = Get-WhoAmIFollowing
             $relationships = Get-Relationship
             $follows | ForEach-Object -Process {
                 $rel = $relationships | Where-Object Id -eq $PSItem.Id
@@ -122,15 +123,16 @@ foreach ($item in $items) {
         }
 
         if ($item -eq "followers") {
+            # Thi can't be imported
             Write-Verbose "Exporting followers"
             $filepath = Join-Path -Path $dir -ChildPath followers.csv
-            "Follower" | Set-Content -FilePath $filepath
-            (Get-Follower).acct | Add-Content -Path $filepath
+            "Follower" | Set-Content -Path $filepath
+            (Get-WhoFollowsMe).acct | Add-Content -Path $filepath
         }
 
         if ($item -eq "posts") {
             Write-Verbose "Exporting bookmarks"
-            $filepath = Join-Path -Path $dir -ChildPath posts.json
+            $filepath = Join-Path -Path $dir -ChildPath posts.csv
             Get-Post | Export-Csv -Path $filepath
         }
 
