@@ -111,14 +111,15 @@ Just add your `$env:ACCESS_TOKEN` environmental variables to your `$profile` and
 ```powershell
 ./main.ps1 -Server yourinstance.tld -Path C:\temp\backups
 ```
-## You may also enjoy...
-
-* [Mastodon Influx](https://github.com/marketplace/actions/mastodon-influx) - This Action will help you import CSV files to Mastodon, including: Follows, Mutes, Account blocks, Lists, Bookmarks, and Domain blocks
-* [Twitter Exodus](https://github.com/marketplace/actions/twitter-exodus) - This Action helps Twitter communities find members on Mastodon. Searches lists, hashtags, account followers and more for Mastodon links in their name, bio or pinned tweet. Once found, their info is exported to a CSV file that can be imported into Mastodon.
-* [Using GitHub Pages to Setup an Alias on Mastodon](https://blog.netnerds.net/2022/11/alias-mastodon-github-pages/) - This tutorial can help you keep your social media presence without running your own Mastodon server.
 
 ## Contributing
 Pull requests are welcome!
+
+## You may also enjoy...
+
+* [Mastodon Influx](https://github.com/marketplace/actions/mastodon-influx) - This Action will help you import CSV files to Mastodon, including: Follows, Mutes, Account blocks, Lists, Bookmarks, and Domain blocks.
+* [Twitter Exodus](https://github.com/marketplace/actions/twitter-exodus) - This Action helps Twitter communities find members on Mastodon. Searches lists, hashtags, account followers and more for Mastodon links in their name, bio or pinned tweet. Once found, their info is exported to a CSV file that can be imported into Mastodon.
+* [Using GitHub Pages to Setup an Alias on Mastodon](https://blog.netnerds.net/2022/11/alias-mastodon-github-pages/) - This tutorial can help you keep your social media presence without running your own Mastodon server.
 
 ## TODO
 You tell me! I'm open to suggestions. But also
