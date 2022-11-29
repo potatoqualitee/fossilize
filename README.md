@@ -116,7 +116,9 @@ Just add your `$env:ACCESS_TOKEN` environmental variables to your `$profile` and
 Pull requests are welcome!
 
 ## TODO
-You tell me! I'm open to suggestions.
+You tell me! I'm open to suggestions. But also
+
+* Add more account compontents after I make a Mastodon module, then I can just export it from there
 
 ## License
 The scripts and documentation in this project are released under the [MIT License](LICENSE)
