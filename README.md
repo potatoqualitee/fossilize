@@ -1,4 +1,4 @@
-# Fossil - Mastodon account backup tool
+# Fossilize - Mastodon account backup tool
 
 This Action will help you backup Mastodon account items to CSV files, including:
 
@@ -21,7 +21,7 @@ Here's how you'd export your follows, lists, blocks, mutes, domain_blocks, bookm
 
 ```yaml
 - name: Backup account to files
-  uses: potatoqualitee/fossil@v1
+  uses: potatoqualitee/fossilize@v1
     with:
         server: dataplatform.social
     env:
@@ -71,7 +71,7 @@ Finally, create a workflow `.yml` file in your repositories `.github/workflows` 
 
 ### Example workflows
 
-Use the `Fossil` action to backup your account to CSV each night at midnight and attach the zip as an artifact
+Use the `Fossilize` action to backup your account to CSV each night at midnight and attach the zip as an artifact
 
 ```yaml
 name: Backup Mastodon Account
