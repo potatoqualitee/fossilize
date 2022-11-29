@@ -87,7 +87,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Backup Mastodon Account
-        uses: ./
+        uses: potatoqualitee/fossilize@v1
         id: backup
         with:
           server: dataplatform.social
