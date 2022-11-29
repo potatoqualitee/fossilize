@@ -96,7 +96,7 @@ foreach ($item in $items) {
                     'Notify on new posts' = $notify
                     'Languages'           = $rel.languages
                 }
-            } | Export-Csv -FilePath $filepath
+            } | Export-Csv -Path $filepath
         }
 
         if ($item -eq "mutes") {
@@ -104,7 +104,7 @@ foreach ($item in $items) {
             $filepath = Join-Path -Path $dir -ChildPath muted_accounts.csv
             # Account address,Hide notifications
             foreach ($account in (Get-AccountMute).acct) {
-                "$account, $true" | Add-Content -FilePath $filepath
+                "$account, $true" | Add-Content -Path $filepath
             }
         }
 
@@ -125,13 +125,13 @@ foreach ($item in $items) {
             Write-Verbose "Exporting followers"
             $filepath = Join-Path -Path $dir -ChildPath followers.csv
             "Follower" | Set-Content -FilePath $filepath
-            (Get-Follower).acct | Add-Content -FilePath $filepath
+            (Get-Follower).acct | Add-Content -Path $filepath
         }
 
         if ($item -eq "posts") {
             Write-Verbose "Exporting bookmarks"
             $filepath = Join-Path -Path $dir -ChildPath posts.json
-            Get-Post | Export-Csv -FilePath $filepath
+            Get-Post | Export-Csv -Path $filepath
         }
 
         Get-ChildItem -Path $filepath

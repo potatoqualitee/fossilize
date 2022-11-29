@@ -19,7 +19,7 @@ function Get-Following {
         [psobject[]]$Id = $script:myid
     )
     $script:link = $null
-    Invoke-Request -Path "accounts/$Id/following"
+    Invoke-Request -Path "accounts/$Id/following?limit=0"
 
     while ($null -ne $script:link) {
         Invoke-Request -Path $script:link
