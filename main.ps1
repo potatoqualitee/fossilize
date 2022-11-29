@@ -167,5 +167,4 @@ if (-not $PSBoundParameter.Type) {
 #>
 
 
-$csv = Resolve-Path -Path $Path
-"csv-path=$csv" >> $env:GITHUB_OUTPUT
+"csv-path=$dir" >> $env:GITHUB_OUTPUT
