@@ -135,7 +135,9 @@ foreach ($item in $items) {
             Get-Post | ConvertTo-Json -Depth 10 | Out-File -FilePath $filepath
         }
 
-        Get-ChildItem -Path $filepath
+        if ((Test-Path -Path $filpath)) {
+            Get-ChildItem -Path $filepath -ErrrorAction Ignore
+        }
     }
 }
 

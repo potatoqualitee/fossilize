@@ -47,10 +47,15 @@ runs:
         }
 
         function ConvertTo-Array ($str) {
-          # all input to be either commas or yaml arrays
-          $results = ($str -split ',').Split(" ", [System.StringSplitOptions]::RemoveEmptyEntries)
-          if ($results) {
-            $results.Trim()
+          # Let them add values in a variety of ways
+          if ($str -match [System.Environment]::NewLine) {
+            $results = $str.Split([System.Environment]::NewLine, [System.StringSplitOptions]::RemoveEmptyEntries)
+          } else {
+            $results = ($str -split ',').Split(" ", [System.StringSplitOptions]::RemoveEmptyEntries)
+          }
+
+          foreach ($result in $results) {
+            $result.TrimStart().TrimEnd()
           }
         }
 
