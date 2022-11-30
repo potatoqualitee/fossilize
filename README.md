@@ -50,7 +50,7 @@ Click new application link -> Your access token
 
 Once you have your authentication information, you will need to them to your [repository secrets](https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/managing-encrypted-secrets-for-your-repository-and-organization-for-github-codespaces#adding-secrets-for-a-repository).
 
-I named my secret `TOKEN`. You can modify the names, though you must ensure that your environmental variables are named appropriately, as seen in the sample code.
+I named my secret `ACCESS_TOKEN`. You can use any secretname you want, though you must ensure that your environmental variables are named appropriately, as seen in the sample code.
 
 ### Create workflows
 
