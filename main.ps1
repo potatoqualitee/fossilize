@@ -136,7 +136,7 @@ foreach ($item in $items) {
         }
 
         if ((Test-Path -Path $filepath)) {
-            Get-ChildItem -Path $filepath -ErrrorAction Ignore
+            Get-ChildItem -Path $filepath -ErrorAction Ignore
         }
     }
 }
