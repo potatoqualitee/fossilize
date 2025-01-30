@@ -21,7 +21,7 @@ Here's how you'd export your follows, lists, blocks, mutes, domain_blocks, bookm
 
 ```yaml
 - name: Backup account to files
-  uses: potatoqualitee/fossilize@v1
+  uses: potatoqualitee/fossilize@v2
     with:
         server: dataplatform.social
     env:
@@ -87,7 +87,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Backup Mastodon Account
-        uses: potatoqualitee/fossilize@v1
+        uses: potatoqualitee/fossilize@v2
         id: backup
         with:
           server: dataplatform.social
